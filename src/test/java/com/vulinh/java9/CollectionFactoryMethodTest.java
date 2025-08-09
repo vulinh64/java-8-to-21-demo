@@ -6,15 +6,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings({"DataFlowIssue", "java:S5778", "OverwrittenKey"})
 class CollectionFactoryMethodTest {
 
   @Test
-  @DisplayName("Test shallowly immutable List#of factory method")
   void testListOf() {
     // Not accepting null value
     assertThrows(NullPointerException.class, () -> System.out.println(List.of((Object) null)));
@@ -48,7 +45,6 @@ class CollectionFactoryMethodTest {
   }
 
   @Test
-  @DisplayName("Test shallowly immutable Set#of factory method")
   void testSetOf() {
     // Not accepting null value
     assertThrows(NullPointerException.class, () -> System.out.println(Set.of((Object) null)));
@@ -67,7 +63,6 @@ class CollectionFactoryMethodTest {
   }
 
   @Test
-  @DisplayName("Test shallowly immutable Map#of and Map#entry factory methods")
   void testMapOf() {
     // Not accepting null key
     assertThrows(NullPointerException.class, () -> System.out.println(Map.of(null, 1)));
@@ -84,7 +79,6 @@ class CollectionFactoryMethodTest {
   }
 
   @Test
-  @DisplayName("Map#of and Map#entry do not accept null keys or null values")
   void testMapOfEntry() {
     // Deliberate error due to direct
     assertThrows(
@@ -101,7 +95,6 @@ class CollectionFactoryMethodTest {
   }
 
   @Test
-  @DisplayName("Expect map manipulation of the map object throws UnsupportedOperationException")
   void testManipulateMap() {
     var map = Map.ofEntries(Map.entry(1, 1), Map.entry(2, 2), Map.entry(3, 3));
 

@@ -49,7 +49,10 @@ class NewEnhancedSwitchExpressionTest {
       case 2:
         result = isLeapYear(year) ? 29 : 28;
         break;
-      case 4, 6, 9, 11:
+      case 4:
+      case 6:
+      case 9:
+      case 11:
         result = 30;
         break;
       default:

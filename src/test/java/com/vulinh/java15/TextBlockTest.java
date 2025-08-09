@@ -29,6 +29,17 @@ class TextBlockTest {
         }
         """;
 
+    var notCool = "{\n" + "  \"payload\": \"\\\"id\\\": \\\"123456\\\"\"\n" + "}";
+
+    var evenMoreBlyatfulText =
+        """
+        {
+          "payload": "\\"id\\": \\"123456\\""
+        }\
+        """;
+
     assertEquals(uglyJson, blyatifulJson);
+
+    assertEquals(notCool, evenMoreBlyatfulText);
   }
 }

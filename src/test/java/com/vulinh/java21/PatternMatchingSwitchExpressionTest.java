@@ -36,7 +36,10 @@ class PatternMatchingSwitchExpressionTest {
           "This beauty, called %s can displace about %s tons of water"
               .formatted(name, ship.waterDisplacement);
       case Vehicle.Airplane airplane ->
-          "We need to reach at least %s kmh to be able to take off this plane named %s"
+          """
+          We need to reach at least %s kmh to \
+          be able to take off this plane named %s\
+          """
               .formatted(airplane.takeOffSpeed, name);
       default -> throw new UnsupportedOperationException("Unexpected vehicle type: " + vehicle);
     };

@@ -22,6 +22,8 @@ class PatternMatchingInstanceOfTest {
         "We need to reach at least 296.0 kmh to be able to take off this plane named Boeing 747",
         printInfo(airplane));
 
+    assertEquals(printInfo(tank), printInfoOld(tank));
+
     assertThrows(
         UnsupportedOperationException.class, () -> printInfo(new Vehicle.Motorbike("Jupiter MX")));
   }
@@ -40,8 +42,33 @@ class PatternMatchingInstanceOfTest {
     }
 
     if (vehicle instanceof Vehicle.Airplane airplane) {
-      return "We need to reach at least %s kmh to be able to take off this plane named %s"
+      return """
+          We need to reach at least %s kmh to be \
+          able to take off this plane named %s\
+          """
           .formatted(airplane.takeOffSpeed, name);
+    }
+
+    throw new UnsupportedOperationException("Unexpected vehicle type: " + vehicle);
+  }
+
+  @SuppressWarnings("IfCanBeSwitch")
+  private static String printInfoOld(Vehicle vehicle) {
+    var name = vehicle.name;
+
+    if (vehicle instanceof Vehicle.Tank) {
+      return "This tank (%s) hurts, with the caliber of %s mm"
+          .formatted(name, ((Vehicle.Tank) vehicle).gunCaliber);
+    }
+
+    if (vehicle instanceof Vehicle.Ship) {
+      return "This beauty, called %s can displace about %s tons of water"
+          .formatted(name, ((Vehicle.Ship) vehicle).waterDisplacement);
+    }
+
+    if (vehicle instanceof Vehicle.Airplane) {
+      return "We need to reach at least %s kmh to be able to take off this plane named %s"
+          .formatted(((Vehicle.Airplane) vehicle).takeOffSpeed, name);
     }
 
     throw new UnsupportedOperationException("Unexpected vehicle type: " + vehicle);
