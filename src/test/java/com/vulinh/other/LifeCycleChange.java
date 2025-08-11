@@ -12,7 +12,7 @@ public record LifeCycleChange(Vehicle vehicle, String type) {
 
   public record VehicleInfo(String ecuGeneration) {}
 
-  @SuppressWarnings("Convert2MethodRef")
+  @SuppressWarnings({"Convert2MethodRef", "java:S1612"})
   public void add1(Map<String, Object> attribute, LifeCycleChange lifeCycleChange) {
     Optional.ofNullable(lifeCycleChange.vehicle())
         .map(s -> s.vehicleInfo())
@@ -29,15 +29,6 @@ public record LifeCycleChange(Vehicle vehicle, String type) {
   }
 
   public void add3(Map<String, Object> attribute, LifeCycleChange lifeCycleChange) {
-    // automatically infer data type
-    var map1 = map(List.of(lifeCycleChange));
-
-    // explicitly specify data type
-    Map<String, List<LifeCycleChange>> map2 = map(List.of(lifeCycleChange));
-
-    System.out.println(map1);
-    System.out.println(map2);
-
     Optional.ofNullable(lifeCycleChange.vehicle())
         .map(Vehicle::vehicleInfo)
         .map(VehicleInfo::ecuGeneration)
