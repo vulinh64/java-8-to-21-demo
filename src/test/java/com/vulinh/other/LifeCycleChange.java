@@ -27,7 +27,7 @@ public record LifeCycleChange(Vehicle vehicle) {
   @With
   public record VehicleInfo(String name, String ecuGeneration, VehicleType vehicleType) {}
 
-  @SuppressWarnings({"Convert2MethodRef", "java:S1612"})
+  @SuppressWarnings({"Convert2MethodRef", "java:S1612", "unused"})
   public void add1(Map<String, Object> attribute, LifeCycleChange lifeCycleChange) {
     Optional.ofNullable(lifeCycleChange.vehicle())
         .map(s -> s.vehicleInfo())
@@ -35,6 +35,7 @@ public record LifeCycleChange(Vehicle vehicle) {
         .ifPresent(s -> attribute.put("ecuGeneration", s));
   }
 
+  @SuppressWarnings("unused")
   public void add2(Map<String, Object> attribute, LifeCycleChange lifeCycleChange) {
     if (lifeCycleChange.vehicle() != null
         && lifeCycleChange.vehicle().vehicleInfo() != null
@@ -43,6 +44,7 @@ public record LifeCycleChange(Vehicle vehicle) {
     }
   }
 
+  @SuppressWarnings("unused")
   public void add3(Map<String, Object> attribute, LifeCycleChange lifeCycleChange) {
     Optional.ofNullable(lifeCycleChange.vehicle())
         .map(Vehicle::vehicleInfo)
@@ -52,7 +54,7 @@ public record LifeCycleChange(Vehicle vehicle) {
 
   public static Map<VehicleType, List<VehicleInfo>> map(List<VehicleInfo> lifeCycleChanges) {
     return lifeCycleChanges.stream()
-        .filter(s -> s.ecuGeneration != null)
+        .filter(s -> s.ecuGeneration() != null)
         .collect(Collectors.groupingBy(VehicleInfo::vehicleType));
   }
 }
