@@ -4,13 +4,28 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import lombok.Builder;
+import lombok.With;
 
-@SuppressWarnings("unused")
-public record LifeCycleChange(Vehicle vehicle, String type) {
+@Builder
+@With
+public record LifeCycleChange(Vehicle vehicle) {
 
+  public enum VehicleType {
+    SUV,
+    SEDAN,
+    CONVERTIBLE,
+    HATCHBACK,
+    COUPE
+  }
+
+  @Builder
+  @With
   public record Vehicle(VehicleInfo vehicleInfo) {}
 
-  public record VehicleInfo(String ecuGeneration) {}
+  @Builder
+  @With
+  public record VehicleInfo(String name, String ecuGeneration, VehicleType vehicleType) {}
 
   @SuppressWarnings({"Convert2MethodRef", "java:S1612"})
   public void add1(Map<String, Object> attribute, LifeCycleChange lifeCycleChange) {
@@ -35,7 +50,9 @@ public record LifeCycleChange(Vehicle vehicle, String type) {
         .ifPresent(s -> attribute.put("ecuGeneration", s));
   }
 
-  public Map<String, List<LifeCycleChange>> map(List<LifeCycleChange> lifeCycleChanges) {
-    return lifeCycleChanges.stream().collect(Collectors.groupingBy(LifeCycleChange::type));
+  public static Map<VehicleType, List<VehicleInfo>> map(List<VehicleInfo> lifeCycleChanges) {
+    return lifeCycleChanges.stream()
+        .filter(s -> s.ecuGeneration != null)
+        .collect(Collectors.groupingBy(VehicleInfo::vehicleType));
   }
 }

@@ -37,7 +37,7 @@ class NewEnhancedSwitchExpressionTest {
     };
   }
 
-  @SuppressWarnings("EnhancedSwitchMigration")
+  @SuppressWarnings({"EnhancedSwitchMigration", "java:S6208"})
   private static int getDaysOfMonth1(int year, int month) {
     if (month < 1 || month > 12) {
       throw new IllegalArgumentException("Invalid month");
